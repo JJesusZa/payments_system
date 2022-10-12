@@ -9,7 +9,6 @@ export class RegisterService {
 
   //Funcion para registrar un usuario
   registerUser(user: any) {
-    console.log(JSON.stringify(user));
     return this.http.post('http://localhost:3000/API/workers', user);
   }
 

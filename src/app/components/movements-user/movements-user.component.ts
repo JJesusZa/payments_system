@@ -10,12 +10,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./movements-user.component.css'],
 })
 export class MovementsUserComponent implements OnInit {
-  id_worker: any;//id del worker
-  month: any;//mes elegido 
-  year: any;//año elegido
-  arrMovements: any = [];//arreglo con los movimientos
-  salary: any;//obejtopara mostrar el modal
-  loader: boolean = false;//spinner
+  id_worker: any; //id del worker
+  month: any; //mes elegido
+  year: any; //año elegido
+  name: any; //nombre del trabajador
+  arrMovements: any = []; //arreglo con los movimientos
+  salary: any; //obejtopara mostrar el modal
+  loader: boolean = false; //spinner
   constructor(
     private url: ActivatedRoute,
     private router: Router,
@@ -39,7 +40,13 @@ export class MovementsUserComponent implements OnInit {
       title: 'Seleccione el mes y el año',
       html:
         '<input id="swal-input1" class="swal2-input" placeholder="Año">' +
-        '<input id="swal-input2" class="swal2-input" placeholder="Mes">',
+        '<select id="swal-input2" class="swal2-input"><option value="0">Enero</option>' +
+        '<option value="1">Febrero</option><option value="2">Marzo</option>' +
+        '<option value="3">Abril</option><option value="4">Mayo</option>' +
+        '<option value="5">Junio</option><option value="6">Julio</option>' +
+        '<option value="7">Agosto</option><option value="8">Septiembre</option>' +
+        '<option value="9">Octubre</option><option value="10">Noviembre</option>' +
+        '<option value="11">Diciembre</option></select>',
       focusConfirm: false,
       allowOutsideClick: false,
       cancelButtonText: 'Cancelar',
@@ -85,8 +92,8 @@ export class MovementsUserComponent implements OnInit {
       },
     }).then((result: any) => {
       if (result.isConfirmed) {
-        this.month = result.value[1];//respaldo el mes
-        this.year = result.value[0];//respaldo el año
+        this.month = result.value[1]; //respaldo el mes
+        this.year = result.value[0]; //respaldo el año
         this.helpers.loader();
         this.getMovements(this.id_worker, result.value[0], result.value[1]);
       }
@@ -101,8 +108,10 @@ export class MovementsUserComponent implements OnInit {
   getMovements(id: any, year: any, month: any) {
     this.get.getMovementsByWorker(id, month, year).subscribe({
       next: (data: any) => {
+        //asigno el nombre del trabajador
+        this.name = data[0]?.name;
         this.arrMovements = data;
-/*         console.log(this.arrMovements); */
+        /*         console.log(this.arrMovements); */
         //si no hay movimientos le muestro un mensaje al usuario
       },
       error: (error) => {
@@ -129,7 +138,7 @@ export class MovementsUserComponent implements OnInit {
   //funcion para calcular el salario mensual
   calculateSalary() {
     this.loader = true;
-    this.get.getSalary(this.id_worker,this.month,this.year).subscribe({
+    this.get.getSalary(this.id_worker, this.month, this.year).subscribe({
       next: (data: any) => {
         this.salary = data;
       },
@@ -138,7 +147,7 @@ export class MovementsUserComponent implements OnInit {
       },
       complete: () => {
         this.loader = false;
-      }
+      },
     });
   }
 }

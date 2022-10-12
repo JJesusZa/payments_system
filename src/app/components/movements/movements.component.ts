@@ -168,7 +168,7 @@ export class MovementsComponent implements OnInit {
   getInfoWorker(event: any) {
     this.arrWorkers.forEach((element: any) => {
       if (element._id == event.target.value) {
-        console.log(element.name);
+        /* console.log(element.name); */
         this.formaddMovement.get('n_client')?.setValue(element.n_client);
         this.formaddMovement.get('name')?.setValue(element.name);
         this.formaddMovement.get('role')?.setValue(element.role);

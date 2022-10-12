@@ -1,6 +1,15 @@
 <div class="container-md d-flex">
   <div class="col-12">
-    <div class="row"></div>
+    <div class="row jumbotron" *ngIf="name">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Movimientos de {{ this.name }}</h1>
+          <p class="lead">
+            Los movimientos mostrados comprenden solamente el mes {{ helpers.getMonth(this.month) }}
+          </p>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="mt-3">
         <table class="table w-100">

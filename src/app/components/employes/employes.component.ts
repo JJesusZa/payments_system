@@ -37,7 +37,7 @@ export class EmployesComponent implements OnInit {
   getWorkers() {
     this.get.getUsers().subscribe({
       next: (v) => {
-        console.log(v);
+      /*   console.log(v); */
         this.arrWorkers = v;
       },
       error: (e) => {
@@ -58,7 +58,7 @@ export class EmployesComponent implements OnInit {
     this.helpers.loader();
     this.register.registerUser(this.formaddWorker.value).subscribe({
       next: (v) => {
-        console.log(v);
+        /* console.log(v); */
         this.formaddWorker.reset();
         this.getWorkers();
       },
@@ -78,7 +78,7 @@ export class EmployesComponent implements OnInit {
     this.helpers.loader();
     this.get.getWorker(id).subscribe({
       next: (v:any) => {
-        console.log(v);
+       /*  console.log(v); */
         this.formaddWorker.setValue({
           n_client: v.n_client,
           name: v.name,
@@ -98,7 +98,7 @@ export class EmployesComponent implements OnInit {
 
   //funcion para editar un trabajador
   updateWorker() {
-    console.log(this.id_worker);
+    /* console.log(this.id_worker); */
     if (this.formaddWorker.invalid) {
       this.helpers.error('Todos los campos son obligatorios');
       return;
@@ -106,7 +106,7 @@ export class EmployesComponent implements OnInit {
     this.helpers.loader();
     this.register.updateUser(this.id_worker,this.formaddWorker.value).subscribe({
       next: (v) => {
-        console.log(v);
+        /* console.log(v); */
         this.formaddWorker.reset();
         this.getWorkers();
       },
