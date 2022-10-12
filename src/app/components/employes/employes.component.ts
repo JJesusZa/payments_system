@@ -29,8 +29,8 @@ export class EmployesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.helpers.loader();
-    this.getWorkers();
+    this.helpers.loader();//inicio la aplicacion con el loader
+    this.getWorkers();//y traigo los trabajadores
   }
 
   //funcion para traer los trabajadores

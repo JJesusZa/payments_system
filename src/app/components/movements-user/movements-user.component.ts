@@ -22,7 +22,7 @@ export class MovementsUserComponent implements OnInit {
     private get: GetServiceService,
     public helpers: HelpersService
   ) {
-    //traigo el id del worker
+    //traigo el id del worker de la url
     this.url.queryParams.subscribe((params) => {
       this.id_worker = params['id'];
     });
@@ -85,8 +85,8 @@ export class MovementsUserComponent implements OnInit {
       },
     }).then((result: any) => {
       if (result.isConfirmed) {
-        this.month = result.value[1];
-        this.year = result.value[0];
+        this.month = result.value[1];//respaldo el mes
+        this.year = result.value[0];//respaldo el año
         this.helpers.loader();
         this.getMovements(this.id_worker, result.value[0], result.value[1]);
       }
@@ -102,11 +102,11 @@ export class MovementsUserComponent implements OnInit {
     this.get.getMovementsByWorker(id, month, year).subscribe({
       next: (data: any) => {
         this.arrMovements = data;
-        console.log(this.arrMovements);
+/*         console.log(this.arrMovements); */
         //si no hay movimientos le muestro un mensaje al usuario
       },
       error: (error) => {
-        console.log(error);
+        this.helpers.error('Error al traer los movimientos');
       },
       complete: () => {
         if (this.arrMovements.length == 0) {
@@ -131,7 +131,6 @@ export class MovementsUserComponent implements OnInit {
     this.loader = true;
     this.get.getSalary(this.id_worker,this.month,this.year).subscribe({
       next: (data: any) => {
-        console.log(data);
         this.salary = data;
       },
       error: (error) => {

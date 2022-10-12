@@ -42,7 +42,6 @@ export class MovementsComponent implements OnInit {
   getMovements() {
     this.get.getMovements().subscribe({
       next: (v) => {
-        console.log(v);
         this.arrMovements = v;
       },
       error: (e) => {
@@ -62,9 +61,8 @@ export class MovementsComponent implements OnInit {
       .registerMovement(this.formaddMovement.getRawValue())
       .subscribe({
         next: (v) => {
-          console.log(v);
-          this.formaddMovement.reset();
-          this.getMovements();
+          this.formaddMovement.reset();//limpiamos el formulario
+          this.getMovements();//traemos los movimientos
         },
         error: (e) => {
           this.helpers.error('Algo salio mal, vuelva a intentarlo');
@@ -82,14 +80,7 @@ export class MovementsComponent implements OnInit {
     this.helpers.loader();
     this.get.getMovement(id).subscribe({
       next: (v: any) => {
-        console.log(v);
-        /* this.formaddMovement.setValue({
-          n_client: v.n_client,
-          name: v.name,
-          role: v.role,
-          month: v.month,
-          deliveries: v.deliveries,
-        }); */
+        //setamos los valores del formulario
         this.formaddMovement.get('n_client')?.setValue(v.n_client);
         this.formaddMovement.get('name')?.setValue(v.name);
         this.formaddMovement.get('role')?.setValue(v.role);
@@ -108,7 +99,6 @@ export class MovementsComponent implements OnInit {
 
   //funcion para editar un movimiento
   updateMovement() {
-    console.log(this.id_movement);
     if (this.formaddMovement.invalid) {
       this.helpers.error('Todos los campos son obligatorios');
       return;
@@ -118,7 +108,6 @@ export class MovementsComponent implements OnInit {
       .updateMovement(this.id_movement, this.formaddMovement.getRawValue())
       .subscribe({
         next: (v) => {
-          console.log(v);
           this.formaddMovement.reset();
           this.getMovements();
         },
@@ -164,7 +153,6 @@ export class MovementsComponent implements OnInit {
   getWorkers() {
     this.get.getUsers().subscribe({
       next: (v) => {
-        console.log(v);
         this.arrWorkers = v;
       },
       error: (e) => {
@@ -178,7 +166,6 @@ export class MovementsComponent implements OnInit {
 
   //funcion para traer la info del worker que seleccionamos
   getInfoWorker(event: any) {
-    console.log(event.target.value);
     this.arrWorkers.forEach((element: any) => {
       if (element._id == event.target.value) {
         console.log(element.name);
