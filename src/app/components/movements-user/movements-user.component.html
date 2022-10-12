@@ -1,0 +1,143 @@
+<div class="container-md d-flex">
+  <div class="col-12">
+    <div class="row"></div>
+    <div class="row">
+      <div class="mt-3">
+        <table class="table w-100">
+          <thead>
+            <tr>
+              <th class="text4">Numero de cliente</th>
+              <th class="text4">Nombre</th>
+              <th class="text4">Rol</th>
+              <th class="text4">Mes</th>
+              <th class="text4">Entregas</th>
+            </tr>
+          </thead>
+          <tbody class="align-middle">
+            <tr *ngFor="let movement of arrMovements">
+              <th scope="row">{{ movement.n_client }}</th>
+              <td>{{ movement.name }}</td>
+              <td>{{ helpers.getRolUser(movement.role) }}</td>
+              <td>{{ helpers.getMonth(movement.month) }}</td>
+              <td>{{ movement.deliveries }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col d-flex justify-content-center">
+        <button (click)="indexSwal()" class="btn btn-primary">
+          Buscar otra fecha <i class="fas fa-search"></i>
+        </button>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <button
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          class="btn btn-success justify-content-end"
+          (click)="calculateSalary(); loader = true"
+        >
+          Calcular salario Mensual
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Salario Mensual</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="loader" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div *ngIf="!loader">
+          <div class="row">
+            <div class="col-6">
+              <p>Salario por Entregas</p>
+            </div>
+            <div class="col-6">
+              <p class="dineros text-success">
+                {{ salary?.pago_total_entregas | currency: "MXN" }}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p>Salario por Bonos</p>
+            </div>
+            <div class="col-6">
+              <p class="dineros text-success">
+                {{ salary?.pago_total_bonos | currency: "MXN" }}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p>Vales de despensa</p>
+            </div>
+            <div class="col-6">
+              <p class="dineros text-success">
+                {{ salary?.vales | currency: "MXN" }}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p>Salario Bruto</p>
+            </div>
+            <div class="col-6">
+              <p class="d-flex justify-content-end text-success">
+                {{ salary?.pago_total | currency: "MXN" }}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p>Retenciones</p>
+            </div>
+            <div class="col-6">
+              <p class="d-flex justify-content-end text-danger">
+                {{ salary?.retenciones | currency: "MXN" }}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p>Suelto neto</p>
+            </div>
+            <div class="col-6">
+              <p class="d-flex justify-content-end text-success">
+                {{ salary?.sueldo_neto | currency: "MXN" }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

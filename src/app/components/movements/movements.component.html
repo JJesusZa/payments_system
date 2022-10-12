@@ -1,0 +1,188 @@
+<div class="container-md d-flex">
+  <div class="col-12">
+    <div class="row">
+      <button
+        type="button"
+        class="btn btn-primary btn-agregar mt-3"
+        data-bs-target="#modalEditBanner"
+        data-bs-toggle="modal"
+        (click)="action = 1"
+      >
+        <i class="fas fa-plus"></i>
+        Agregar
+      </button>
+    </div>
+    <div class="row">
+      <div class="table-responsive mt-3">
+        <table class="table w-100">
+          <thead>
+            <tr>
+              <th class="text4 text-blue">Numero de cliente</th>
+              <th class="text4 text-blue">Nombre</th>
+              <th class="text4 text-blue">Rol</th>
+              <th class="text4 text-blue">Mes</th>
+              <th class="text4 text-blue">Entregas</th>
+              <th class="text4 text-blue">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="align-middle">
+            <tr *ngFor="let movement of arrMovements">
+              <th scope="row">{{ movement.n_client }}</th>
+              <td>{{ movement.name }}</td>
+              <td>{{ helpers.getRolUser(movement.role) }}</td>
+              <td>{{ helpers.getMonth(movement.month) }}</td>
+              <td>{{ movement.deliveries }}</td>
+              <td class="d-flex justify-content-center">
+                <button (click)="deleteMovement(movement._id)" class="btn">
+                  <i class="fas fa-x"></i>
+                </button>
+                <button
+                  (click)="getMovement(movement._id)"
+                  class="btn"
+                  data-bs-target="#modalEditBanner"
+                  data-bs-toggle="modal"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal para agregar y editar un trabajador -->
+<div
+  class="modal fade"
+  id="modalEditBanner"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form [formGroup]="formaddMovement" class="w-100">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 col-lg-8">
+            <label for="empresa" class="text23 mb-2">Nombre</label>
+            <select
+              class="form-control"
+              id="n_client"
+              (change)="getInfoWorker($event)"
+            >
+              <option value="" selected>Seleccione un trabajador</option>
+              <option
+                *ngFor="let worker of arrWorkers"
+                value="{{ worker._id }}"
+              >
+                {{ worker.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 col-lg-8">
+            <label for="nombre" class="text23 mb-2"
+              >Nombre del trabajador</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              formControlName="name"
+              placeholder="Numero del trabajador"
+            />
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 col-lg-8">
+            <label for="nombre" class="text23 mb-2">Numero de trabajador</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              formControlName="n_client"
+              placeholder="Numero del trabajador"
+            />
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 col-lg-8">
+            <label for="nombre" class="text23 mb-2">Rol</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="role"
+            >
+              <option selected>Selecciona un rol</option>
+              <option value="0">Chofer</option>
+              <option value="1">Cargador</option>
+              <option value="2">Auxiliar</option>
+            </select>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 col-lg-8">
+            <label for="nombre" class="text23 mb-2">Mes</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="month"
+            >
+              <option selected>Selecciona un mes</option>
+              <option value="0">Enero</option>
+              <option value="1">Febrero</option>
+              <option value="2">Marzo</option>
+              <option value="3">Abril</option>
+              <option value="4">Mayo</option>
+              <option value="5">Junio</option>
+              <option value="6">Julio</option>
+              <option value="7">Agosto</option>
+              <option value="8">Septiembre</option>
+              <option value="9">Octubre</option>
+              <option value="10">Noviembre</option>
+              <option value="11">Diciembre</option>
+            </select>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 col-lg-8">
+            <label for="nombre" class="text23 mb-2">Entregas</label>
+            <input
+              type="number"
+              class="form-control"
+              id="deliveries"
+              formControlName="deliveries"
+              placeholder="10"
+            />
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-auto mt-4 justify-content-center">
+            <button
+              type="submit"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              class="btn btn-primary mb-3"
+              (click)="action == 1 ? addMovement() : updateMovement()"
+            >
+              <i *ngIf="action == '1'" class="fas fa-plus"></i>
+              <i *ngIf="action == '2'" class="fas fa-edit"></i>
+              {{ action == "1" ? "Agregar" : "Editar" }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd">
+  <div class="container-fluid">
+    <a
+      class="navbar-brand"
+      [routerLink]="['/trabajadores']"
+      routerLinkActive="router-link-active"
+      >Sistema de pagos</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/trabajadores']"
+            routerLinkActive="router-link-active"
+            >Trabajadores</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            [routerLink]="['/movimientos']"
+            routerLinkActive="router-link-active"
+            >Movimientos</a
+          >
+        </li>
+      </ul>
+    </div>
+    <a class="navbar-brand" href="#">
+      <img
+        src="././../../../assets/logo.png"
+        alt="Logo"
+        width="60"
+        height="50"
+      />
+    </a>
+  </div>
+</nav>

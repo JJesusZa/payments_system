@@ -1,0 +1,9 @@
+.table{
+    height: 70%;
+    width: 100%;
+    overflow: scroll;
+}
+.dineros{
+    display: flex;
+    justify-content: center;
+}
