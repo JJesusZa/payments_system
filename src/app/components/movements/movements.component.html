@@ -38,7 +38,13 @@
               <td>{{ helpers.getMonth(movement.month) }}</td>
               <td>{{ movement.deliveries }}</td>
               <td class="d-flex justify-content-center">
-                <button (click)="deleteMovement(movement._id)" class="btn">
+                <button
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Eliminar"
+                  (click)="deleteMovement(movement._id)"
+                  class="btn"
+                >
                   <i class="fas fa-x"></i>
                 </button>
                 <button
@@ -46,6 +52,8 @@
                   class="btn"
                   data-bs-target="#modalEditBanner"
                   data-bs-toggle="modal"
+                  data-bs-placement="top"
+                  title="Editar movimiento"
                 >
                   <i class="fas fa-edit"></i>
                 </button>
