@@ -62,8 +62,7 @@ export class EmployesComponent implements OnInit {
         this.getWorkers();
       },
       error: (e) => {
-        console.log(e);
-        this.helpers.error('Algo salio mal, vuelva a intentarlo');
+        this.helpers.error(e.error.message);
       },
       complete: () => {
         Swal.close();
