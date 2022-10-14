@@ -57,12 +57,12 @@ export class EmployesComponent implements OnInit {
     }
     this.helpers.loader();
     this.register.registerUser(this.formaddWorker.value).subscribe({
-      next: (v) => {
-        /* console.log(v); */
+      next: (v:any) => {
         this.formaddWorker.reset();
         this.getWorkers();
       },
       error: (e) => {
+        console.log(e);
         this.helpers.error('Algo salio mal, vuelva a intentarlo');
       },
       complete: () => {

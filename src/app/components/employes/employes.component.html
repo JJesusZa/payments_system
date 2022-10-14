@@ -90,6 +90,7 @@
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          (click)="formaddWorker.reset()"
         ></button>
       </div>
       <form [formGroup]="formaddWorker" class="w-100">
@@ -125,7 +126,7 @@
               aria-label="Default select example"
               formControlName="role"
             >
-              <option selected>Selecciona un rol</option>
+              <option selected value="">Selecciona un rol</option>
               <option value="0">Chofer</option>
               <option value="1">Cargador</option>
               <option value="2">Auxiliar</option>
@@ -144,6 +145,12 @@
               <i *ngIf="action == '1'" class="fas fa-plus"></i>
               <i *ngIf="action == '2'" class="fas fa-edit"></i>
               {{ action == "1" ? "Agregar" : "Editar" }}
+            </button>
+            <button
+              class="btn btn-primary mb-3"
+              (click)="formaddWorker.reset()"
+            >
+              Limpiar
             </button>
           </div>
         </div>
